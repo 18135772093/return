@@ -9,6 +9,8 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { Image as VanImage } from 'vant';
+
 import Home from '../views/Home.vue'
 import Cart from '../views/Cart.vue'
 import Category from '../views/Category.vue'
@@ -25,6 +27,8 @@ import About from '../views/About.vue'
 import CreateOrder from '../views/CreateOrder.vue'
 
 Vue.use(VueRouter)
+
+Vue.use(VanImage)
 
 const routes = [
   {

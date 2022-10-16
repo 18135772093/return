@@ -1,16 +1,6 @@
-<!--
- * 严肃声明：
- * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
- * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
- * 可正常分享和学习源码，不得用于违法犯罪活动，违者必究！
- * Copyright (c) 2020 陈尼克 all rights reserved.
- * 版权所有，侵权必究！
- *
--->
-
 <template>
   <div class="user-box">
-    <s-header :name="'我的'"></s-header>
+    <s-header :name="'个人中心'"></s-header>
     <div class="user-info">
       <div class="info">
         <img src="//s.weituibao.com/1583583975067/user-graduate%20(1).png"/>
@@ -21,59 +11,100 @@
         </div>
       </div>
     </div>
-    <ul class="user-list">
-      <li @click="goTo('order')">
-        <span>我的订单</span>
-        <van-icon name="arrow" />
-      </li>
-      <li @click="goTo('setting')">
-        <span>账号管理</span>
-        <van-icon name="arrow" />
-      </li>
-      <li @click="goTo('address?from=mine')">
-        <span>地址管理</span>
-        <van-icon name="arrow" />
-      </li>
-      <li @click="goTo('about')">
-        <span>关于我们</span>
-        <van-icon name="arrow" />
-      </li>
-    </ul>
+    <!--    <van-grid direction="horizontal" :column-num="2">-->
+    <!--      <van-grid-item icon="photo-o" text="回收订单" />-->
+    <!--      <van-grid-item icon="photo-o" text="文字" />-->
+    <!--      <van-grid-item icon="photo-o" text="文字" />-->
+    <!--    </van-grid>-->
+    <!--    <ul class="user-list">-->
+    <!--      <li @click="goTo('order')">-->
+    <!--        <span>回收订单</span>-->
+    <!--        <van-icon name="arrow" />-->
+    <!--      </li>-->
+    <!--      <li @click="goTo('setting')">-->
+    <!--        <span>账号管理</span>-->
+    <!--        <van-icon name="arrow" />-->
+    <!--      </li>-->
+    <!--      <li @click="goTo('address?from=mine')">-->
+    <!--        <span>地址管理</span>-->
+    <!--        <van-icon name="arrow" />-->
+    <!--      </li>-->
+    <!--      <li @click="goTo('about')">-->
+    <!--        <span>关于我们</span>-->
+    <!--        <van-icon name="arrow" />-->
+    <!--      </li>-->
+    <!--      <li @click="goTo('problem')">-->
+    <!--        <span>常见问题</span>-->
+    <!--        <van-icon name="arrow" />-->
+    <!--      </li>-->
+    <!--    </ul>-->
+<!--    <div class="image">-->
+<!--      <img src="../newbee-mall-vue-app-master/static-files/保护环境.png">-->
+<!--    </div>-->
+    <van-cell-group class="user-list">
+      <van-cell title="回收订单"
+                icon="records"
+                is-link
+                @click="goTo('order')"/>
+      <van-cell title="账号管理"
+                icon="gold-coin"
+                @click="goTo('setting')"
+                is-link/>
+      <van-cell title="地址管理"
+                icon="location"
+                @click="goTo('address?from=mine')"
+                is-link/>
+      <van-cell title="关于我们"
+                icon="contact"
+                @click="goTo('about')"
+                is-link/>
+      <van-cell title="常见问题"
+                icon="question"
+                @click="goTo('about')"
+                is-link/>
+    </van-cell-group>
+    <!--    <div class="use-often">常用功能-->
+    <!--      <div class="address-edit" >地址管理</div>-->
+    <!--      <div class="account-edit" >账号管理</div>-->
+    <!--      <div class="about-us" >关于我们</div>-->
+    <!--    </div>-->
     <nav-bar></nav-bar>
   </div>
 </template>
 
 <script>
-import navBar from '@/components/NavBar'
-import sHeader from '@/components/SimpleHeader'
-import { getUserInfo } from '../service/user'
-export default {
-  components: {
-    navBar,
-    sHeader
-  },
-  data() {
-    return {
-      user: {}
-    }
-  },
-  async mounted() {
-    const { data } = await getUserInfo()
-    this.user = data
-  },
-  methods: {
-    goBack() {
-      this.$router.go(-1)
+  import navBar from '@/components/NavBar'
+  import sHeader from '@/components/SimpleHeader'
+  import {getUserInfo} from '../service/user'
+
+  export default {
+    components: {
+      navBar,
+      sHeader
     },
-    goTo(r) {
-      this.$router.push({ path: r })
+    data() {
+      return {
+        user: {}
+      }
+    },
+    async mounted() {
+      const {data} = await getUserInfo()
+      this.user = data
+    },
+    methods: {
+      goBack() {
+        this.$router.go(-1)
+      },
+      goTo(r) {
+        this.$router.push({path: r})
+      }
     }
   }
-}
 </script>
 
 <style lang="less" scoped>
   @import '../common/style/mixin';
+
   .user-box {
     .user-header {
       position: fixed;
@@ -88,10 +119,12 @@ export default {
       color: #252525;
       background: #fff;
       border-bottom: 1px solid #dcdcdc;
+
       .user-name {
         font-size: 14px;
       }
     }
+
     .user-info {
       width: 94%;
       margin: 10px;
@@ -100,6 +133,7 @@ export default {
       box-shadow: 0 2px 5px #269090;
       border-radius: 6px;
       margin-top: 50px;
+
       .info {
         position: relative;
         display: flex;
@@ -107,11 +141,8 @@ export default {
         height: 100%;
         padding: 25px 20px;
         .boxSizing();
-        img {
-          .wh(60px, 60px);
-          border-radius: 50%;
-          margin-top: 4px;
-        }
+
+
         .user-desc {
           display: flex;
           flex-direction: column;
@@ -119,18 +150,21 @@ export default {
           line-height: 20px;
           font-size: 14px;
           color: #fff;
+
           span {
             color: #fff;
             font-size: 14px;
             padding: 2px 0;
           }
         }
+
         .account-setting {
           position: absolute;
           top: 10px;
           right: 20px;
           font-size: 13px;
           color: #fff;
+
           .van-icon-setting-o {
             font-size: 16px;
             vertical-align: -3px;
@@ -139,9 +173,15 @@ export default {
         }
       }
     }
+    .image{
+      padding: 10px 5px;
+      margin-top: 30px;
+    }
+
     .user-list {
-      padding: 0 20px;
-      margin-top: 20px;
+      padding: 10px 5px;
+      margin-top: 120px;
+
       li {
         height: 40px;
         line-height: 40px;
@@ -149,10 +189,32 @@ export default {
         display: flex;
         justify-content: space-between;
         font-size: 14px;
+        padding-left: 20px; /* 设置字体向右移动20px，否者会遮挡到背景图片 */
+
         .van-icon-arrow {
           margin-top: 13px;
         }
       }
     }
+
+    /*use-often{*/
+    /*  width: 100%;*/
+    /*  height: 64px;*/
+    /*  display: flex;*/
+    /*}*/
+    /*address-edit{*/
+    /*  width: 33%;*/
+    /*  height: 50px;*/
+
+    /*}*/
+    /*account-edit{*/
+    /*  width: 33%;*/
+    /*  height: 50px;*/
+
+    /*}*/
+    /*about-us{*/
+    /*  width: 33%;*/
+    /*  height: 50px;*/
+    /*}*/
   }
 </style>
